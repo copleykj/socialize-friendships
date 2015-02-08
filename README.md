@@ -1,11 +1,11 @@
-#Friendships#
+# Friendships #
 
 Provides social network style Friend Requests and Friendships.
 
 
-##Request Model##
+## Request Model ##
 
-###Request() - Extends BaseModel###
+### Request() - Extends BaseModel ###
 
 **Request.prototype.accept()** - Accept a friend request.
 
@@ -16,24 +16,24 @@ Provides social network style Friend Requests and Friendships.
 **Request.prototype.isDenied()** - Check to see if the request has been denied.
 
 
-##Friend Model##
+## Friend Model ##
 
-###Friend() - Extends BaseModel###
+### Friend() - Extends BaseModel ###
 
 **Friend.prototype.user()** - The User instance for the friend.
 
-##User Extensions##
+## User Extensions ##
 This package extends the socialize:user-model package with properties and methods that apply the the user in the context of friends and friend requests.
 
-###Static Properties###
+### Static Properties ###
 
 **User.restrictRequestDays** - The number of days to restrict a user from making another friend request to the same person.
 
-###Static Methods###
+### Static Methods ###
 
 **User.registerBlockingHook(hook)** - Register a function that when returns true signifies that a user is blocked. Hook function is passed a User instance to check against and the context is the calling user instance.
 
-###Prototypal Methods###
+### Prototypal Methods ###
 
 **User.prototype.requests(limit, skip, sortBy, sortOrder)** - Get the requests for the user. Returns a Mongo.Cursor which yields Request instances.
 
@@ -52,7 +52,7 @@ This package extends the socialize:user-model package with properties and method
 
 **User.prototype.blocksUser(user)** - Check if one user blocks another. Check include by _id by default. Other blocking checks can be registred using `User.registerBlockingHook`.
 
-##Publications##
+## Publications ##
 
 This package provides some publictions for convienience.
 
