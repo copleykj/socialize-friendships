@@ -28,7 +28,7 @@ random@1.0.2
 retry@1.0.2
 service-configuration@1.0.3
 socialize:base-model@0.1.0
-socialize:friendships@0.1.0
+socialize:friendships@0.1.1
 socialize:user-model@0.1.0
 tracker@1.0.5
 underscore@1.0.2
