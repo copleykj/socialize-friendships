@@ -6,6 +6,14 @@
 Request = BaseModel.extend();
 
 /**
+ * Get the User instance for the user who made the request
+ * @returns {User} The user who made the request
+ */
+Request.prototype.user = function () {
+    return Meteor.users.findOne(this.requesterId);
+};
+
+/**
  * Accept the friend request
  * @method approve
  */
