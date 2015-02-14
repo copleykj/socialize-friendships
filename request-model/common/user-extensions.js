@@ -2,7 +2,7 @@
 User.restrictRequestDays = 30;
 
 /**
- * Get the friend request the user currently has
+ * Get the friend requests the user currently has
  * @param   {Number}       limit     The maximum number of requests to return
  * @param   {Number}       skip      The number of records to skip
  * @param   {String}       sortBy    The key to sort on
@@ -27,8 +27,38 @@ User.prototype.requests = function (limit, skip, sortBy, sortOrder) {
  * @method numPendingRequests
  * @returns {Number} The number of pending requests
  */
-User.prototype.numPendingRequests = function () {
+User.prototype.numRequests = function () {
     return RequestsCollection.find({userId:this._id}).count();
+};
+
+/**
+ * Get the pending requests from this user to other users
+ * @param   {Number}       limit     The maximum number of requests to return
+ * @param   {Number}       skip      The number of records to skip
+ * @param   {String}       sortBy    The key to sort on
+ * @param   {Number}       sortOrder The order in which to sort the result. 1 for ascending, -1 for descending
+ *                                   @returns {Mongo.Cursor} A cursor which returns request instances
+ */
+User.prototype.pendingRequests = function (limit, skip, sortBy, sortOrder) {
+    var options = {};
+    var sort = {};
+    if(limit){
+        options.limit = limit;
+    }
+    if(sortBy && sortOrder){
+        sort[sortBy] = sortOrder;
+        options.sort = sort;
+    }
+    return RequestsCollection.find({requesterId:this._id}, options);
+};
+
+/**
+ * Retrieve the number of pending friend requests the user has
+ * @method numPendingRequests
+ * @returns {Number} The number of pending requests
+ */
+User.prototype.numPendingRequests = function () {
+    return RequestsCollection.find({requesterId:this._id}).count();
 };
 
 /**
