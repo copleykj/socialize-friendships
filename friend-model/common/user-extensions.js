@@ -48,8 +48,16 @@ User.prototype.friendsAsUsers = function (limit, sortBy, sortOrder, online) {
     return Meteor.users.find(selector, options);
 };
 
+/**
+ * Remove the friendship connection between the user and the logged in user
+ * @method unfriend
+ */
 User.prototype.unfriend = function () {
-    FriendsCollection.findOne({userId:Meteor.userId(), friendId:this._id}).remove();
+    var friend = FriendsCollection.findOne({userId:Meteor.userId(), friendId:this._id});
+
+    //if we have a friend record, remove it. FriendsCollection.after.remove will
+    //take care of removing reverse friend connection for other user
+    friend && friend.remove();
 };
 
 /**
