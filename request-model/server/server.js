@@ -4,9 +4,12 @@ RequestsCollection.allow({
             var user = Meteor.users.findOne(request.userId);
             var requester = Meteor.users.findOne(request.requesterId);
 
-            //if the user doesn't have a current request from from the requester
-            //and the user isn't blocking the requester, then allow the request
-            if(!user.isSelf() && !user.hasRequestFrom(requester) && !user.blocksUser(requester)){
+            //make sure there are no requests between the two users
+            var pendingRequests = user.hasRequestFrom(requester) || requester.hasRequestFrom(user);
+            //make sure neither user is blocking the other
+            var activeBlocks = user.blocksUser(requester) || requester.blocksUserById(user);
+
+            if(!user.isSelf() && !pendingRequests && !activeBlocks){
                 return true;
             }
         }
