@@ -14,6 +14,14 @@ Request.prototype.user = function () {
 };
 
 /**
+ * Get the User instance for the user who received the request
+ * @returns {User} The user who received the request
+ */
+Request.prototype.requestee = function() {
+    return Meteor.users.findOne(this.userId);
+};
+
+/**
  * Accept the friend request
  * @method approve
  */
