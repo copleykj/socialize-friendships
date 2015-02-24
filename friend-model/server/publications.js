@@ -4,6 +4,8 @@ Meteor.publish("friends", function (options) {
         return this.ready();
     }
 
+    options = options || {};
+
     //only allow the limit and skip options
     options = _.pick(options, "limit", "skip");
 

@@ -17,7 +17,7 @@ Request.prototype.user = function () {
  * Accept the friend request
  * @method approve
  */
-Request.prototype.accept = function(){
+Request.prototype.accept = function () {
 	FriendsCollection.insert({userId:this.userId, friendId:this.requesterId});
 };
 

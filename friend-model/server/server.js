@@ -18,7 +18,7 @@ FriendsCollection.allow({
 FriendsCollection.after.insert(function(userId, document){
     var user = User.createEmpty(document.friendId);
     var friend = User.createEmpty(userId);
-	
+
     //this if is a dirty dirty hack, unfortunately collection-hooks bypasses
     //collection2 with simple-schema when using collection.direct and doesn't
     //insert a proper record since we rely on simple-schema's autoValue feature

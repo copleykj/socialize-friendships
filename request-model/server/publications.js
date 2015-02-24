@@ -2,7 +2,9 @@ Meteor.publish('friendRequests', function(options){
     if(!this.userId){
         return this.ready();
     }
-    
+
+    options = options || {};
+
     //only allow the limit and skip options
     options = _.pick(options, "limit", "skip");
 
@@ -24,6 +26,8 @@ Meteor.publish('outgoingFriendRequests', function(options){
     if(!this.userId){
         return this.ready();
     }
+
+    options = options || {};
 
     //only allow the limit and skip options
     options = _.pick(options, "limit", "skip");

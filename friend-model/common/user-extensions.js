@@ -18,12 +18,13 @@ User.prototype.friends = function (includeSelf) {
  * Retrieves friend connections as the users they represent
  * @method friendsAsUsers
  * @param   {Number}       limit     The maximum number or friends to return
+ * @param   {Number}       skip      The number of records to skip
  * @param   {String}       sortBy    The key to sort on
  * @param   {Number}       sortOrder The order in which to sort 1 for ascending, -1 for descending
  * @param   {Boolean}      online    Whether to only fetch friends that are currently online
  * @returns {Mongo.Cursor} A cursor which returns user instances
  */
-User.prototype.friendsAsUsers = function (limit, sortBy, sortOrder, online) {
+User.prototype.friendsAsUsers = function (limit, skip, sortBy, sortOrder, online) {
     var options = {};
     var sort = {};
     var selector;
@@ -37,6 +38,11 @@ User.prototype.friendsAsUsers = function (limit, sortBy, sortOrder, online) {
     if(limit){
         options.limit = limit;
     }
+
+    if(skip){
+        options.skip = skip;
+    }
+
     if(sortBy && sortOrder){
         sort[sortBy] = sortOrder;
         options.sort = sort;

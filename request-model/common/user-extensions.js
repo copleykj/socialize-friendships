@@ -69,7 +69,7 @@ User.prototype.numPendingRequests = function () {
  */
 User.prototype.hasRequestFrom = function (user) {
     var request = RequestsCollection.findOne({userId:this._id, requesterId:user._id}, {fields:{_id:true, denied:true}});
-    
+
     if(request){
         var minDate =  request.denied && request.denied.getTime() + (3600000 * 24 * User.restrictRequestDays);
         if(!request.denied || minDate > Date.now()){

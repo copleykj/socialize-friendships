@@ -61,7 +61,7 @@ User.prototype.block = function () {
 User.prototype.unblock = function () {
     //find then remove because you must remove records by _id on client
     var block = BlocksCollection.findOne({userId:Meteor.userId(), blockedUserId:this._id});
-    
+
     block && block.remove();
 };
 
