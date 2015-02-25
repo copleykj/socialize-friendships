@@ -9,7 +9,7 @@ Request = BaseModel.extend();
  * Get the User instance for the user who made the request
  * @returns {User} The user who made the request
  */
-Request.prototype.user = function () {
+Request.prototype.requester = function () {
     return Meteor.users.findOne(this.requesterId);
 };
 
@@ -17,7 +17,7 @@ Request.prototype.user = function () {
  * Get the User instance for the user who received the request
  * @returns {User} The user who received the request
  */
-Request.prototype.requestee = function() {
+Request.prototype.user = function() {
     return Meteor.users.findOne(this.userId);
 };
 
