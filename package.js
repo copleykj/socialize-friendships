@@ -1,7 +1,7 @@
 Package.describe({
     name: "socialize:friendships",
     summary: "A social friendship package",
-    version: "0.2.1",
+    version: "0.3.0",
 });
 
 Package.onUse(function(api) {
