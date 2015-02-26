@@ -7,6 +7,10 @@ Provides social network style Friend Requests and Friendships.
 
 ### Request() - Extends BaseModel ###
 
+**Request.prototype.requester()** - Get the user instance for the user who requested the friendship.
+
+**Request.prototype.user()** - Get the user instance for the user who's friendship is being requested.
+
 **Request.prototype.accept()** - Accept a friend request.
 
 **Request.prototype.deny()** - Deny a friend request. Request won't be allowed to be re-made for `User.restrictRequestDays` Days. Default is 30 days.
