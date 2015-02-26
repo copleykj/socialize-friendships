@@ -9,8 +9,6 @@ Meteor.publish("friends", function (options) {
     //only allow the limit and skip options
     options = _.pick(options, "limit", "skip");
 
-    options.fields = {username:1, createdAt:1, "profile.online":1, "profile.tagline":1, "profile.photo":1};
-
     new SimplePublication({
         subHandle:this,
         collection:FriendsCollection,
