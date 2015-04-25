@@ -7,19 +7,19 @@ Meteor.publish("friends", function (options) {
     options = options || {};
 
     //only allow the limit and skip options
-    options = _.pick(options, "limit", "skip");
+    options = _.pick(options, "limit", "skip", "sort");
 
-    new SimplePublication({
-        subHandle:this,
-        collection:FriendsCollection,
-        selector:{userId:this.userId, friendId:{$ne:this.userId}},
+
+
+    Meteor.publishWithRelations({
+        handle: this,
+        collection: Meteor.friends,
+        filter: {userId:this.userId, friendId:{$ne:this.userId}},
         options:options,
-        dependant:new SimplePublication({
-            subHandle:this,
-            collection:Meteor.users,
-            options:{fields:{"username":true, "profile":true}},
-            foreignKey:"friendId",
-            inverted:true,
-        })
-    }).start();
+        mappings: [{
+            key: 'friendId',
+            collection: Meteor.users,
+            options:{fields:{username:true, avatarId:true}}
+        }]
+    });
 });
