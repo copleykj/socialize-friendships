@@ -3,7 +3,7 @@
  * @class Friend
  * @param {Object} document An object representing a Friend ususally a Mongo document
  */
-Friend =  BaseModel.extend();
+Friend =  BaseModel.extendAndSetupCollection();
 
 /**
  * Get the User instance for the friend
@@ -16,18 +16,10 @@ Friend.prototype.user = function () {
     }
 };
 
-//Create the friends collection and assign it to Friend.prototype._collection so BaseModel knows how to access it
-FriendsCollection = Friend.prototype._collection = new Mongo.Collection('friends', {
-    // Transform the document into an instance of Friend
-    transform: function (doc) {
-        return new Friend(doc);
-    }
-});
-
-Meteor.friends = FriendsCollection;
+FriendsCollection = Friend.collection;
 
 //Create the schema for a friend
-var FriendSchema = new SimpleSchema({
+Friend.appendSchema({
     "userId":{
         type:String,
         regEx:SimpleSchema.RegEx.Id,
@@ -54,6 +46,3 @@ var FriendSchema = new SimpleSchema({
         denyUpdate:true
     }
 });
-
-//Attach the schema to the FriendsCollection
-FriendsCollection.attachSchema(FriendSchema);

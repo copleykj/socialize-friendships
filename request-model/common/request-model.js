@@ -3,7 +3,7 @@
  * @class Request
  * @param {Object} document An object representing a request, usually a Mongo document
  */
-Request = BaseModel.extend();
+Request = BaseModel.extendAndSetupCollection();
 
 /**
  * Get the User instance for the user who made the request
@@ -26,7 +26,7 @@ Request.prototype.user = function () {
  * @method approve
  */
 Request.prototype.accept = function () {
-	FriendsCollection.insert({userId:this.userId, friendId:this.requesterId});
+    FriendsCollection.insert({userId:this.userId, friendId:this.requesterId});
 };
 
 /**
@@ -53,18 +53,10 @@ Request.prototype.isDenied = function() {
     return !!this.denied;
 };
 
-//Create the requests collection and assign it to Friend.prototype._collection so BaseModel knows how to access it
-RequestsCollection = Request.prototype._collection = new Meteor.Collection("requests", {
-    transform: function(document){
-        return new Request(document);
-    }
-});
-
-//Assign RequestsCollection to Meteor scope for convienience
-Meteor.requests = RequestsCollection;
+RequestsCollection = Request.collection;
 
 //Create the schema for a friend
-var RequestSchema = new SimpleSchema({
+Request.appendSchema({
     "userId":{
         type:String,
         regEx:SimpleSchema.RegEx.Id,
@@ -98,6 +90,3 @@ var RequestSchema = new SimpleSchema({
         optional:true
     }
 });
-
-//Attach the schema to the FriendsCollection
-RequestsCollection.attachSchema(RequestSchema);

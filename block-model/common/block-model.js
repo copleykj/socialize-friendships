@@ -3,17 +3,12 @@
  * @class Block
  * @param {Object} document An object representing a Block ususally a Mongo document
  */
-Block = BaseModel.extend();
+Block = BaseModel.extendAndSetupCollection("blocks");
 
-//create the BlocksCollection and assign a reference to Block.prototype._collection so BaseModel knows where to find it
-BlocksCollection = Meteor.blocks = Block.prototype._collection = new Mongo.Collection("blocks", {
-    transform: function (document) {
-        return new Block(document);
-    }
-});
+BlocksCollection = Block.collection;
 
 //Create the schema for a Block
-var BlockSchema = new SimpleSchema({
+Block.appendSchema({
     "userId":{
         type:String,
         regEx:SimpleSchema.RegEx.Id,
@@ -40,6 +35,3 @@ var BlockSchema = new SimpleSchema({
         denyUpdate:true
     }
 });
-
-//Attach the schema to the BlocksCollection
-BlocksCollection.attachSchema(BlockSchema);
