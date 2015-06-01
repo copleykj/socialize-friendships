@@ -3,7 +3,7 @@
  * @class Request
  * @param {Object} document An object representing a request, usually a Mongo document
  */
-Request = BaseModel.extendAndSetupCollection();
+Request = BaseModel.extendAndSetupCollection("requests");
 
 /**
  * Get the User instance for the user who made the request

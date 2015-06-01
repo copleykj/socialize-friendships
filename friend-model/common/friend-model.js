@@ -3,7 +3,7 @@
  * @class Friend
  * @param {Object} document An object representing a Friend ususally a Mongo document
  */
-Friend =  BaseModel.extendAndSetupCollection();
+Friend =  BaseModel.extendAndSetupCollection("friends");
 
 /**
  * Get the User instance for the friend
