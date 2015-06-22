@@ -38,6 +38,14 @@ Request.prototype.deny = function() {
 };
 
 /**
+ * Ignore the friend request so that it can be accpted or denied later
+ * @method ignore
+ */
+Request.prototype.ignore = function() {
+    this.update({$set:{ignored:new Date()}});
+};
+
+/**
  * Cancel the friend request
  * @method cancel
  */
@@ -88,5 +96,9 @@ Request.appendSchema({
     "denied":{
         type:Date,
         optional:true
+    },
+    "ignored":{
+        type:Date,
+        optional:true,
     }
 });
