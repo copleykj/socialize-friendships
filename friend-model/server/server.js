@@ -27,7 +27,7 @@ FriendsCollection.after.insert(function(userId, document){
         RequestsCollection.remove({userId:document.userId, requesterId:document.friendId});
         //create a reverse record for the other user
         //so the connection happens for both users
-    	FriendsCollection.insert({userId:document.friendId, friendId:userId});
+        FriendsCollection.insert({userId:document.friendId, friendId:userId});
     }
 });
 
