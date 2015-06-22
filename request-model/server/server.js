@@ -4,17 +4,16 @@ RequestsCollection.allow({
             var user = Meteor.users.findOne(request.userId);
             var requester = Meteor.users.findOne(request.requesterId);
 
-            //make sure there are no requests between the two users
-            var pendingRequests = user.hasRequestFrom(requester) || requester.hasRequestFrom(user);
-            //make sure neither user is blocking the other
-            var activeBlocks = user.blocksUser(requester) || requester.blocksUserById(user);
-
-            if(!user.isSelf() && !pendingRequests && !activeBlocks){
-                return true;
+            if(!user.isSelf() && !user.isFriendsWith(requester)){
+                if(!(user.blocksUser(requester) || requester.blocksUserById(user))){
+                    if(!(user.hasRequestFrom(requester) || requester.hasRequestFrom(user))){
+                        return true;
+                    }
+                }
             }
         }
     },
-	update: function (userId, request) {
+    update: function (userId, request) {
         if(userId){
             request = new Request(request);
             //let the update happen if the request belongs to the user. simple-schema takes
