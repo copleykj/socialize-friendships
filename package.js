@@ -9,7 +9,7 @@ Package.onUse(function(api) {
     api.versionsFrom("1.0.2.1");
 
     api.use([
-        "socialize:user-model@0.1.3"
+        "socialize:user-model@0.1.4"
     ]);
 
     api.imply("socialize:user-model");
