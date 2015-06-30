@@ -28,7 +28,6 @@ Friend.appendSchema({
                 return Meteor.userId();
             }
         },
-        optional:true,
         denyUpdate:true
     },
     "friendId":{
@@ -38,11 +37,10 @@ Friend.appendSchema({
     "date":{
         type:Date,
         autoValue:function() {
-            if(this.isInsert){
+            if(this.isInsert || !this.isFromTrustedCode){
                 return new Date();
             }
         },
-        optional:true,
         denyUpdate:true
     }
 });

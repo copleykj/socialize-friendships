@@ -26,7 +26,7 @@ Request.prototype.user = function () {
  * @method approve
  */
 Request.prototype.accept = function () {
-    FriendsCollection.insert({userId:this.userId, friendId:this.requesterId});
+    new Friend({userId:this.userId, friendId:this.requesterId}).save();
 };
 
 /**
@@ -74,23 +74,19 @@ Request.appendSchema({
         type:String,
         regEx:SimpleSchema.RegEx.Id,
         autoValue:function () {
-            if(this.isInsert){
+            if(this.isInsert || !this.isFromTrustedCode){
                 return Meteor.userId();
-            }else{
-                this.unset();
             }
         },
-        optional:true,
         denyUpdate:true
     },
     "date":{
         type:Date,
         autoValue:function() {
-            if(this.isInsert){
+            if(this.isInsert || !this.isFromTrustedCode){
                 return new Date();
             }
         },
-        optional:true,
         denyUpdate:true
     },
     "denied":{

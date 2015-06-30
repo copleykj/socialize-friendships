@@ -13,11 +13,10 @@ Block.appendSchema({
         type:String,
         regEx:SimpleSchema.RegEx.Id,
         autoValue:function () {
-            if(this.isInsert && !this.isSet){
+            if(this.isInsert || !this.isFromTrustedCode){
                 return Meteor.userId();
             }
         },
-        optional:true,
         denyUpdate:true
     },
     "blockedUserId":{
@@ -27,11 +26,10 @@ Block.appendSchema({
     "date":{
         type:Date,
         autoValue:function() {
-            if(this.isInsert){
+            if(this.isInsert || !this.isFromTrustedCode){
                 return new Date();
             }
         },
-        optional:true,
         denyUpdate:true
     }
 });

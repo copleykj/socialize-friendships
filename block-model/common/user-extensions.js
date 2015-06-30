@@ -51,7 +51,7 @@ User.prototype.blocksUserById = function (user) {
  * @method block
  */
 User.prototype.block = function () {
-    BlocksCollection.insert({blockedUserId:this._id});
+    new Block({blockedUserId:this._id}).save();
 };
 
 /**

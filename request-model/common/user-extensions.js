@@ -84,5 +84,5 @@ User.prototype.hasRequestFrom = function (user) {
  */
 User.prototype.requestFriendship = function () {
     //insert the request, simple-schema takes care of default fields and values and allow takes care of permissions
-    RequestsCollection.insert({userId:this._id});
+    new Request({userId:this._id}).save();
 };
