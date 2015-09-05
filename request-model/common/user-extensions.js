@@ -86,5 +86,20 @@ User.methods({
     requestFriendship: function () {
         //insert the request, simple-schema takes care of default fields and values and allow takes care of permissions
         new Request({userId:this._id}).save();
+    },
+
+    cancelFriendshipRequest: function () {
+        var request = Meteor.requests.findOne({requesterId:Meteor.userId(), userId:this._id});
+        request && request.cancel();
+    },
+
+    acceptFriendRequest: function() {
+        var request = Meteor.requests.findOne({requesterId:this._id, userId:Meteor.userId()});
+        request && request.accept();
+    },
+
+    denyFriendRequest: function() {
+        var request = Meteor.requests.findOne({requesterId:this._id, userId:Meteor.userId()});
+        request && request.deny();
     }
 });
