@@ -5,11 +5,11 @@ Provides social network style Friend Requests and Friendships.
 
 ## Requests ##
 
-Requests are created by calling `user.requestFriendship` where `user` is an instance fo the user class. When retrieved from the database records are converted to instances of the `Request` class which gives access to the methods of the class. [User Extensions]
+Requests are created by calling `user.requestFriendship` where `user` is an instance fo the user class. When retrieved from the database records are converted to instances of the `Request` class which gives access to the methods of the class.
 
 ### Request (class) - Extends [BaseModel](https://github.com/copleykj/socialize-base-model)  ###
 
-To gain access the methods of a request you must first have an instance of a request. You can obtain an instance by performing a query on the requests collection. A `findOne` will return an instance and a `find` will return a cursor which when iterated over will return an instance for each iteration. Ways of obtaining instances that belong to the current user are provided as extensions to the `User` class and are detail in the [User Extensions][] section of this document
+To gain access the methods of a request you must first have an instance of a request. You can obtain an instance by performing a query on the requests collection. A `findOne` will return an instance and a `find` will return a cursor which when iterated over will return an instance for each iteration. Ways of obtaining instances that belong to the current user are provided as extensions to the `User` class and are detail in the [User Extension](#user-extensions) section of this document
 
 ```javascript
 var request = Meteor.requests.findOne(); //instance of Request
@@ -61,7 +61,7 @@ request.isDenied(); //true if the request was denied
 
 ### Friend (class) - Extends [BaseModel](https://github.com/copleykj/socialize-base-model)  ###
 
-To gain access the methods of a friend you must first have an instance of a friend. You can obtain an instance by performing a query on the friend collection. A `findOne` will return an instance and a `find` will return a cursor which when iterated over will return an instance for each iteration. Ways of obtaining instances that belong to the current user are provided as extensions to the `User` class and are detailed in the [User Extensions][] section of this document
+To gain access the methods of a friend you must first have an instance of a friend. You can obtain an instance by performing a query on the friend collection. A `findOne` will return an instance and a `find` will return a cursor which when iterated over will return an instance for each iteration. Ways of obtaining instances that belong to the current user are provided as extensions to the `User` class and are detailed in the [User Extensions](#user-extensions) section of this document
 
 ```javascript
 var request = Meteor.friends.findOne(); //instance of Request
