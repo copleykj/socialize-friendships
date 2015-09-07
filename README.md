@@ -5,7 +5,7 @@ Provides social network style Friend Requests and Friendships.
 
 ## Requests ##
 
-Requests are created by calling `user.requestFriendship` where `user` is an instance fo the user class. When retrieved from the database records are converted to instances of the `Request` class which gives access to the methods of the class.
+Requests are created by calling `user.requestFriendship` where `user` is an instance fo the user class. The request will be created as a request from the currently logged in user to the user requresented by `user`. When retrieved from the database records are converted to instances of the `Request` class which gives access to the methods of the class.
 
 ### Request (class) - Extends [BaseModel](https://github.com/copleykj/socialize-base-model)  ###
 
