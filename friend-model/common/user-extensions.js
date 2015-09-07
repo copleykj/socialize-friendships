@@ -3,17 +3,13 @@ User.methods({
     /**
      * Retrieve a list of friend connections
      * @method friends
-     * @param   {Boolean}      includeSelf Whether to includ the user in the list
-     * @returns {Mongo.Cursor} A cursor of which returns Friend instances
+     * @param   {Number}        The number of records to limit the result set too
+     * @param   {number}        The number of records to skip
+     * @returns {Mongo.Cursor}  A cursor of which returns Friend instances
      */
-    friends:function (includeSelf) {
-        var selector = { userId:this._id };
-
-        if(!includeSelf){
-            selector.friendId = {$ne:this._id};
-        }
-
-        return FriendsCollection.find(selector);
+    friends:function (limit, skip) {
+        var options = {limit:limit, skip:skip, sort:{date:-1}};
+        return FriendsCollection.find({userId:this._id}, options);
     },
 
     /**
@@ -21,39 +17,14 @@ User.methods({
      * @method friendsAsUsers
      * @param   {Number}       limit     The maximum number or friends to return
      * @param   {Number}       skip      The number of records to skip
-     * @param   {String}       sortBy    The key to sort on
-     * @param   {Number}       sortOrder The order in which to sort 1 for ascending, -1 for descending
-     * @param   {Boolean}      online    Whether to only fetch friends that are currently online
      * @returns {Mongo.Cursor} A cursor which returns user instances
      */
-    friendsAsUsers:function (limit, skip, sortBy, sortOrder, online) {
-        var options = {};
-        var sort = {};
-        var selector;
-
-        var ids = this.friends().map(function(friend){
+    friendsAsUsers:function (limit, skip) {
+        var ids = this.friends(limit, skip).map(function(friend){
             return friend.friendId;
         });
 
-        selector = {_id:{$in:ids}};
-
-        if(limit){
-            options.limit = limit;
-        }
-
-        if(skip){
-            options.skip = skip;
-        }
-
-        if(sortBy && sortOrder){
-            sort[sortBy] = sortOrder;
-            options.sort = sort;
-        }
-        if(online){
-            selector['profile.online'] = {$ne:false};
-        }
-
-        return Meteor.users.find(selector, options);
+        return Meteor.users.find({_id:{$in:ids}});
     },
 
     /**
