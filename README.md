@@ -130,7 +130,7 @@ Template.userProfile.events({
 });
 ```
 
-**User.prototype.friends** - Get friends for the user. Returns a Mongo.Cursor which yields Friend instances
+**friends** - Get friends for the user. Returns a Mongo.Cursor which yields Friend instances
 
 ```html
 {{#each currentUser.friends}}
