@@ -130,7 +130,7 @@ Template.userProfile.events({
 });
 ```
 
-**friends** - Get friends for the user. Returns a Mongo.Cursor which yields Friend instances
+**friends(limit, skip)** - Get friends for the user. Returns a Mongo.Cursor which yields Friend instances
 
 ```html
 {{#each currentUser.friends}}
@@ -139,7 +139,7 @@ Template.userProfile.events({
 {{/each}}
 ```
 
-**friendsAsUsers(limit, sortBy, sortOrder, online)** - Get friends for user as the users they represent. Returns a Mongo.Cursor which yields User instances.
+**friendsAsUsers(limit, skip)** - Get friends for user as the users they represent. Returns a Mongo.Cursor which yields User instances.
 
 ```html
 {{#each currentUser.friendsAsUsers}}
