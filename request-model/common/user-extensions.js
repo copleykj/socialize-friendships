@@ -88,17 +88,29 @@ User.methods({
         new Request({userId:this._id}).save();
     },
 
+    /**
+     * Cancel a friendship request sent to the user
+     * @method cancelFrienshipRequest
+     */
     cancelFriendshipRequest: function () {
         var request = Meteor.requests.findOne({requesterId:Meteor.userId(), userId:this._id});
         request && request.cancel();
     },
 
-    acceptFriendRequest: function() {
+    /**
+     * Accept frienship request from the user
+     * @method  acceptFriendshipRequest
+     */
+    acceptFriendshipRequest: function() {
         var request = Meteor.requests.findOne({requesterId:this._id, userId:Meteor.userId()});
         request && request.accept();
     },
 
-    denyFriendRequest: function() {
+    /**
+     * Deny friendship request from the user
+     * @method denyFriendshipRequest
+     */
+    denyFriendshipRequest: function() {
         var request = Meteor.requests.findOne({requesterId:this._id, userId:Meteor.userId()});
         request && request.deny();
     }
