@@ -8,19 +8,11 @@ User.methods({
      * @param   {Number}       skip      The number of records to skip
      * @param   {String}       sortBy    The key to sort on
      * @param   {Number}       sortOrder The order in which to sort the result. 1 for ascending, -1 for descending
-     *                                   @returns {Mongo.Cursor} A cursor which returns request instances
+     * @returns {Mongo.Cursor} A cursor which returns request instances
      */
-    requests: function (limit, skip, sortBy, sortOrder) {
-        var options = {};
-        var sort = {};
-        if(limit){
-            options.limit = limit;
-        }
-        if(sortBy && sortOrder){
-            sort[sortBy] = sortOrder;
-            options.sort = sort;
-        }
-        return RequestsCollection.find({userId:this._id}, options);
+    requests: function (limit, skip) {
+        var options = {limit:limit, skip:skip};
+        return RequestsCollection.find({userId:this._id, denied:{$exists:false}, ignored:{$exists:false}}, options);
     },
 
     /**
@@ -29,7 +21,7 @@ User.methods({
      * @returns {Number} The number of pending requests
      */
     numRequests: function () {
-        return RequestsCollection.find({userId:this._id}).count();
+        return this.requests().count();
     },
 
     /**
