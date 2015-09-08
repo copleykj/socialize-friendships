@@ -89,24 +89,37 @@ var currentUser = Meteor.user();
 
 ### Instance Methods ###
 
-**requests(limit, skip, sortBy, sortOrder)** - Get the requests for the user. Returns a Mongo.Cursor which yields `Request` instances.
+**requests(limit, skip)** - Get the requests to the user. Returns a Mongo.Cursor which yields `Request` instances.
 
 ```html
 {{#each currentUser.requests}}
-    <p>{{user.username}}</p>
+    <p>{{user.username}} would like to be friends</p>
     <p><a href="#" data-action="accept">Accept</a> <a href="#" data-action="deny">Deny</a></p>
+{{/each}}
+```
+
+**numRequests** - The number of remaining requests to the user
+
+```html
+<div class="badge success">{{currentUser.numRequests}}</div>
+```
+
+**pendingRequests** - A cursor of requests that the user has sent but have not been approved, denied or ignored.
+
+```html
+{{#each currentUser.pendingRequests}}
+    <p>
+        {{user.username}} - <a href="#" data-action="cancel">cance request</a>
+    </p>
 {{/each}}
 ```
 
 **numPendingRequests** - Get the number of requests that have not been responded to.
 
-```javascript
-var requestCount = currentUser.numPendingRequests();
-```
 ```html
-<div id="requestCount" class="badge">
-    {{currentUser.numPendingRequests}}
-</div>
+<p>
+    You have {{currentUser.numPendingRequests}} requests to other users pending.
+</p>
 ```
 
 **hasRequestFrom(user)** - Check if the user already has a request from someone.
@@ -126,6 +139,50 @@ Template.userProfile.events({
     'click [data-action=request]': function() {
         //assumes context is a instance of a user
         this.requestFriendship();
+    }
+});
+```
+
+**cancelFriendshipRequest** - Cancel request made from the currentUser to this user.
+
+```javascript
+Template.userProfile.events({
+    'click [data-action=cancel]': function() {
+        //assumes context is a instance of a user
+        this.cancelFriendshipRequest();
+    }
+});
+```
+
+**acceptFriendshipRequest** - Accept a friend request made from this user to the currentUser.
+
+```javascript
+Template.userProfile.events({
+    'click [data-action=accept]': function() {
+        //assumes context is a instance of a user
+        this.acceptFriendshipRequest();
+    }
+});
+```
+
+**denyFriendshipRequest** - Deny a friend request made from this user to the currentUser.
+
+```javascript
+Template.userProfile.events({
+    'click [data-action=deny]': function() {
+        //assumes context is a instance of a user
+        this.denyFriendshipRequest();
+    }
+});
+```
+
+**ignoreFriendshipRequest** - Ignores a friend request made from this user to the currentUser
+
+```javascript
+Template.userProfile.events({
+    'click [data-action=ignore]': function() {
+        //assumes context is a instance of a user
+        this.ignoreFriendshipRequest();
     }
 });
 ```
