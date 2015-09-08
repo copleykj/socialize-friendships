@@ -71,21 +71,45 @@ User.methods({
      * Get a list of userIds who are blocking the user
      * @method blockedByUsers
      */
-    blockedByUsers: function () {
-        return BlocksCollection.find({blockedUserId:this._id}).map(function (block) {
+    blockedByUserIds: function (limit, skip) {
+        var options = {limit:limit, skip:skip};
+        return BlocksCollection.find({blockedUserId:this._id}, options).map(function (block) {
             return block.userId;
         });
+    },
+
+    /**
+     * Get a cursor of User instances who are blocking the user
+     * @param   {Number}       limit The number of records to limit the result set to
+     * @param   {Number}       skip  The number of records to skip
+     * @returns {Mongo.Cursor} A cursor which when iterated over returns User instances
+     */
+    blockedByUsers: function (limit, skip) {
+        var ids = this.blockedByUserIds(limit, skip);
+        return Meteor.users.find({_id:{$in:ids}});
     },
 
     /**
      * Get a list of userIds that the user blocks
      * @method blockedUsers
      */
-    blockedUsers: function () {
-        return BlocksCollection.find({userId:this._id}).map(function (block) {
+    blockedUserIds: function (limit, skip) {
+        var options = {limit:limit, skip:skip};
+        return BlocksCollection.find({userId:this._id}, options).map(function (block) {
             return block.blockedUserId;
         });
     },
+
+    /**
+     * Get a cursor of User instances that the user is blocking
+     * @param   {Number}       limit The number of records to limit the result set to
+     * @param   {Number}       skip  The number of records to skip
+     * @returns {Mongo.Cursor} A cursor which when iterated over returns User instances
+     */
+    blockedUsers: function (limit, skip) {
+        var ids = this.blockedUserIds(limit, skip);
+        return Meteor.users.find({_id:{$in:ids}})
+    }
 
 });
 
