@@ -1,6 +1,12 @@
 BlocksCollection.allow({
     insert: function (userId, block){
-        return block.checkOwnership();
+        if(block.checkOwnership()){
+            if(!block.isDuplicate()){
+                return true;
+            }else{
+                throw new Meteor.Error("ExistingBlock", "This user is already blocked by the current user");
+            }
+        }
     },
     remove: function (userId, block){
         return block.checkOwnership();

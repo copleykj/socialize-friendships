@@ -5,6 +5,8 @@ FriendsCollection.allow({
             var requester = User.createEmpty(friend.friendId);
             if(user.hasRequestFrom(requester)) {
                 return true;
+            }else{
+                throw new Meteor.Error("NoRequest", "User must request friendship before friendship is allowed");
             }
         }
     },

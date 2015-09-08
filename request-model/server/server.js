@@ -8,8 +8,14 @@ RequestsCollection.allow({
                 if(!(user.blocksUser(requester) || requester.blocksUserById(user))){
                     if(!(user.hasRequestFrom(requester) || requester.hasRequestFrom(user))){
                         return true;
+                    }else{
+                        throw new Meteor.Error("RequestExists", "A request between users already exists");
                     }
+                }else{
+                    throw new Meteor.Error("Blocked", "One user is blocking the other");
                 }
+            }else{
+                throw new Meteor.Error("RelationshipExists", "Either the user is requesting themselves or they are already friends with this user");
             }
         }
     },

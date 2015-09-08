@@ -7,6 +7,12 @@ Block = BaseModel.extendAndSetupCollection("blocks");
 
 BlocksCollection = Block.collection;
 
+Block.methods({
+   isDuplicate: function() {
+       return !!BlocksCollection.findOne({userId:this.userId, blockedUserId:this.blockedUserId});
+   }
+});
+
 //Create the schema for a Block
 Block.appendSchema({
     "userId":{
