@@ -40,17 +40,9 @@ User.methods({
      * @param   {Number}       sortOrder The order in which to sort the result. 1 for ascending, -1 for descending
      *                                   @returns {Mongo.Cursor} A cursor which returns request instances
      */
-    pendingRequests: function (limit, skip, sortBy, sortOrder) {
-        var options = {};
-        var sort = {};
-        if(limit){
-            options.limit = limit;
-        }
-        if(sortBy && sortOrder){
-            sort[sortBy] = sortOrder;
-            options.sort = sort;
-        }
-        return RequestsCollection.find({requesterId:this._id}, options);
+    pendingRequests: function (limit, skip) {
+        var options = {limit:limit, skip:skip};
+        return RequestsCollection.find({requesterId:this._id, denied:{$exists:false}, ignored:{$exists:false}}, options);
     },
 
     /**
@@ -59,7 +51,7 @@ User.methods({
      * @returns {Number} The number of pending requests
      */
     numPendingRequests: function () {
-        return RequestsCollection.find({requesterId:this._id}).count();
+        return this.pendingRequests().count();
     },
 
     /**
