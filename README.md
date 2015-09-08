@@ -50,10 +50,10 @@ request.deny(); //deny the request
 request.cancel(); //cancel the friend request
 ```
 
-**isDenied** - Check to see if the request has been denied.
+**wasRespondedTo** - Check to see if the request has been responded to (denied or ignored).
 
 ```javascript
-request.isDenied(); //true if the request was denied
+request.wasRespondedTo(); //true if the request was responded to.
 ```
 
 
