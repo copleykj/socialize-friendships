@@ -26,7 +26,7 @@ random@1.0.3
 retry@1.0.3
 service-configuration@1.0.4
 socialize:base-model@0.2.3
-socialize:friendships@0.3.7
+socialize:friendships@0.4.0
 socialize:server-time@0.1.1
 socialize:user-model@0.1.4
 tmeasday:publish-with-relations@0.2.0
