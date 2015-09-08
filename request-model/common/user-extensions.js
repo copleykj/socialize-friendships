@@ -113,5 +113,14 @@ User.methods({
     denyFriendshipRequest: function() {
         var request = Meteor.requests.findOne({requesterId:this._id, userId:Meteor.userId()});
         request && request.deny();
+    },
+
+    /**
+     * Ignore friendship request from the user
+     * @method ignoreFriendshipRequest
+     */
+    ignoreFriendshipRequest: function() {
+        var request = Meteor.requests.findOne({requesterId:this._id, userId:Meteor.userId()});
+        request && request.ignore();
     }
 });
