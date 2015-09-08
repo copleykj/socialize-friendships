@@ -57,8 +57,8 @@ Request.prototype.cancel = function () {
  * Check if the request had been denied
  * @returns {Boolean} Whether the request has been denied
  */
-Request.prototype.isDenied = function() {
-    return !!this.denied;
+Request.prototype.wasRespondedTo = function() {
+    return !!this.denied || !!this.ignored;
 };
 
 RequestsCollection = Request.collection;

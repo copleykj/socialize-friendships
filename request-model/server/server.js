@@ -31,7 +31,7 @@ RequestsCollection.allow({
         if(userId){
             //allow the request to be canceled if the currentUser is the requester
             //and the other user has not denied the request
-            return request.requesterId === userId && !request.isDenied();
+            return request.requesterId === userId && !request.wasRespondedTo();
         }
     }
 });
