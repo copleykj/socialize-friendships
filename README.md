@@ -93,8 +93,14 @@ var currentUser = Meteor.user();
 
 ```html
 {{#each currentUser.requests}}
+<div class="request">
     <p>{{user.username}} would like to be friends</p>
-    <p><a href="#" data-action="accept">Accept</a> <a href="#" data-action="deny">Deny</a></p>
+    <p>
+        <a href="#" data-action="accept">Accept</a>
+        <a href="#" data-action="deny">Deny</a>
+        <a href="#" data-action="ignore">Ignore</a>
+    </p>
+</div>
 {{/each}}
 ```
 
