@@ -192,9 +192,22 @@ Template.userProfile.events({
 
 **User.restrictRequestDays** - The number of days to restrict a user from making another friend request to the same person.
 
+```javascript
+User.restrictRequestDays = 365; //don't allow new requests for a year.
+```
+
 ### Static Methods ###
 
 **User.registerBlockingHook(hook)** - Register a function that when returns true signifies that a user is blocked. Hook function is passed a User instance to check against and the context is the calling user instance.
+
+```javascript
+//create a blocking rule that allows users to preemptively block others that may be a nuisance
+User.registerBlockingHook(function(user){
+    if(currentUser.blockAnnoyingUsers && user.flaggedCount > 10){
+        return true;
+    }
+});
+```
 
 ## Publications ##
 
