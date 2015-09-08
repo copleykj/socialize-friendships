@@ -306,4 +306,4 @@ User.registerBlockingHook(function(user){
 
 ## Publications ##
 
-Previous verions of this package provided convienient publications for publishing related data. Over the life of the package though, I have come to realize that publications are too application specific and you should not be locked in to a specific join package for the publications to be pre packaged. Instead publication examples can be found on the [github wiki page for this package](https://github.com/copleykj/socialize-friendships/wiki/Publications).
+Previous verions of this package provided convenient publications for publishing related data. Over the life of the package though, I have come to realize that publications are too application specific and you should not be locked in to a specific join package for the publications to be pre packaged. Instead publication examples can be found on the [github wiki page for this package](https://github.com/copleykj/socialize-friendships/wiki/Publications).
