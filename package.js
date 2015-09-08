@@ -17,19 +17,16 @@ Package.onUse(function(api) {
     //Add the friend-model files
     api.addFiles("friend-model/common/friend-model.js");
     api.addFiles("friend-model/common/user-extensions.js");
-    api.addFiles("friend-model/server/publications.js", "server");
     api.addFiles("friend-model/server/server.js", "server");
 
     //Add the request-model files
     api.addFiles("request-model/common/request-model.js");
     api.addFiles("request-model/common/user-extensions.js");
-    api.addFiles("request-model/server/publications.js", "server");
     api.addFiles("request-model/server/server.js", "server");
 
     //Add the block-model files
     api.addFiles("block-model/common/block-model.js");
     api.addFiles("block-model/common/user-extensions.js");
-    api.addFiles("block-model/server/publications.js", "server");
     api.addFiles("block-model/server/server.js", "server");
 
     api.export(["Friend", "Request", "Block"]);

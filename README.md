@@ -300,16 +300,4 @@ User.registerBlockingHook(function(user){
 
 ## Publications ##
 
-This package provides some publictions for convienience.
-
-**friends  {limit:Number, skip:Number}** - Publishes friend records with their related user records.
-
-```javascript
-Meteor.subscribe('friends', {limit:10, skip:10});
-```
-
-**friendRequests  {limit:Number, skip:Number}** - Publishes request records with their related user records.
-
-```javascript
-Meteor.subscribe('friendRequests', {limit:10, skip:10});
-```
+Previous verions of this package provided convienient publications for publishing related data. Over the life of the package though, I have come to realize that publications are too application specific and you should not be locked in to a specific join package for the publications to be pre packaged. Instead publication examples can be found on the [github wiki page for this package](https://github.com/copleykj/socialize-friendships/wiki/Publications).
