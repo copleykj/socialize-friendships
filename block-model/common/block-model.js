@@ -23,11 +23,14 @@ Block.appendSchema({
                 return Meteor.userId();
             }
         },
+        index: 1,
         denyUpdate:true
     },
     "blockedUserId":{
         type:String,
-        regEx:SimpleSchema.RegEx.Id
+        regEx:SimpleSchema.RegEx.Id,
+        index: 1,
+        denyUpdate: true
     },
     "date":{
         type:Date,
@@ -36,6 +39,7 @@ Block.appendSchema({
                 return new Date();
             }
         },
+        index: -1,
         denyUpdate:true
     }
 });
