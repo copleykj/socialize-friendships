@@ -25,7 +25,9 @@ Friend.appendSchema({
         regEx:SimpleSchema.RegEx.Id,
         autoValue:function () {
             if(this.isInsert){
-                return Meteor.userId();
+                if(!this.isSet && this.isFromTrustedCode){
+                    return Meteor.userId();
+                }
             }
         },
         denyUpdate:true
