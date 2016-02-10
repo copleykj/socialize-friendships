@@ -1,7 +1,7 @@
 Package.describe({
     name: "socialize:friendships",
     summary: "A social friendship package",
-    version: "0.4.1",
+    version: "0.4.2",
     git: "https://github.com/copleykj/socialize-friendships.git"
 });
 
@@ -9,7 +9,7 @@ Package.onUse(function(api) {
     api.versionsFrom("1.0.2.1");
 
     api.use([
-        "socialize:user-model@0.1.4"
+        "socialize:user-model@0.1.5"
     ]);
 
     api.imply("socialize:user-model");

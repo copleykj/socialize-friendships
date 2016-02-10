@@ -138,6 +138,15 @@ var currentUser = Meteor.user();
 
 ```
 
+**hasRequested(user)** - Check if the current user has requested friendship from the specified user
+```html
+<!-- assuming data context is user instance -->
+{{#if currentUser.hasRequested this}}
+    <div class="btn primary" data-action="cancel">Cancel Request</div>
+{{/if}}
+
+```
+
 **requestFriendship** - Make a friend request from the current user.
 
 ```javascript
