@@ -48,7 +48,7 @@ User.methods({
 
     /**
      * Check if the user has a pending request from someone
-     * @method hasRequstForm
+     * @method hasRequestFrom
      * @param   {Object}  user The user to check if there is a request from
      * @returns {Boolean} Whether or not there is a pending request
      */
@@ -59,6 +59,27 @@ User.methods({
             var minDate =  request.denied && request.denied.getTime() + (3600000 * 24 * User.restrictRequestDays);
             if(!request.denied || minDate > Date.now()){
                 return true;
+            } else {
+              return false;
+            }
+        }
+    },
+
+    /**
+     * Check if the current user has send a friendship request to the given user
+     * @method hasRequested
+     * @param   {Object}  user The user to check if there was send a request to
+     * @returns {Boolean} Whether or not there is a pending request
+     */
+    hasRequested: function (user) {
+        var request = RequestsCollection.findOne({userId:user._id, requesterId:this._id}, {fields:{_id:true, denied:true}});
+
+        if(request){
+            var minDate =  request.denied && request.denied.getTime() + (3600000 * 24 * User.restrictRequestDays);
+            if(!request.denied || minDate > Date.now()){
+                return true;
+            } else {
+              return false;
             }
         }
     },
