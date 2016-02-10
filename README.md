@@ -222,6 +222,14 @@ Template.userProfile.events({
 });
 ```
 
+**isFriendsWith(user)** - Check if the current user has send a friendship request to the given user.
+
+```html
+{{#if currentUser.isFriendsWith this}}
+<p>You are friends with this user</p>
+{{/if}}
+```
+
 **block** - block a user.
 
 ```javascript
