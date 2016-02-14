@@ -1,7 +1,7 @@
 Package.describe({
     name: "socialize:friendships",
     summary: "A social friendship package",
-    version: "0.4.1",
+    version: "0.4.2",
     git: "https://github.com/copleykj/socialize-friendships.git"
 });
 
