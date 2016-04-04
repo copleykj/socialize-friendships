@@ -48,7 +48,7 @@ User.methods({
 
     /**
      * Check if the user has a pending request from someone
-     * @method hasRequstForm
+     * @method hasRequstFrom
      * @param   {Object}  user The user to check if there is a request from
      * @returns {Boolean} Whether or not there is a pending request
      */
