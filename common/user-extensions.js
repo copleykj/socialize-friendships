@@ -11,7 +11,6 @@ import { FriendsCollection } from './friend-model';
 User.restrictRequestDays = 30;
 
 User.methods({
-
     /**
      * Retrieve a list of friend connections
      * @method friends
@@ -67,7 +66,7 @@ User.methods({
      */
     friendRequests(limit, skip) {
         const options = { limit, skip };
-        return RequestsCollection.find({ ...this.getLinkObject(), denied: { $exists: false }, ignored: { $exists: false } }, options);
+        return RequestsCollection.find({ ...this.getLinkObject(), type: 'friend', denied: { $exists: false }, ignored: { $exists: false } }, options);
     },
 
     /**
@@ -76,7 +75,7 @@ User.methods({
      * @returns {Number} The number of pending requests
      */
     numFriendRequests() {
-        return this.requests().count();
+        return this.friendRequests().count();
     },
 
     /**
@@ -87,7 +86,7 @@ User.methods({
      */
     pendingFriendRequests(limit, skip) {
         const options = { limit, skip };
-        return RequestsCollection.find({ ...this.getLinkObject(), denied: { $exists: false }, ignored: { $exists: false } }, options);
+        return RequestsCollection.find({ ...this.getLinkObject(), type: 'friend', denied: { $exists: false }, ignored: { $exists: false } }, options);
     },
 
     /**
@@ -96,7 +95,7 @@ User.methods({
      * @returns {Number} The number of pending requests
      */
     numPendingFriendRequests() {
-        return this.pendingRequests().count();
+        return this.pendingFriendRequests().count();
     },
 
     /**
@@ -106,7 +105,7 @@ User.methods({
      * @returns {Boolean} Whether or not there is a pending request
      */
     hasFriendshipRequestFrom(user) {
-        const request = RequestsCollection.findOne({ ...this.getLinkObject(), requesterId: user._id }, { fields: { _id: true, denied: true } });
+        const request = RequestsCollection.findOne({ ...this.getLinkObject(), type: 'friend', requesterId: user._id }, { fields: { _id: true, denied: true } });
 
         if (request) {
             const minDate = request.denied && request.denied.getTime() + (3600000 * 24 * User.restrictRequestDays);
@@ -131,7 +130,7 @@ User.methods({
      * @method cancelFrienshipRequest
      */
     cancelFriendshipRequest() {
-        const request = RequestsCollection.findOne({ ...this.getLinkObject(), requesterId: Meteor.userId() });
+        const request = RequestsCollection.findOne({ ...this.getLinkObject(), type: 'friend', requesterId: Meteor.userId() });
         request && request.cancel();
     },
 
@@ -142,6 +141,7 @@ User.methods({
     acceptFriendshipRequest() {
         const request = RequestsCollection.findOne({
             ...this.getLinkObject(),
+            type: 'friend',
             requesterId: this._id,
             linkedObjectId: Meteor.userId(),
         });
@@ -155,6 +155,7 @@ User.methods({
     denyFriendshipRequest() {
         const request = RequestsCollection.findOne({
             ...this.getLinkObject(),
+            type: 'friend',
             requesterId: this._id,
             linkedObjectId: Meteor.userId(),
         });
@@ -168,6 +169,7 @@ User.methods({
     ignoreFriendshipRequest() {
         const request = RequestsCollection.findOne({
             ...this.getLinkObject(),
+            type: 'friend',
             requesterId: this._id,
             linkedObjectId: Meteor.userId(),
         });
