@@ -37,7 +37,7 @@ FriendsCollection.after.insert(function afterInsert(userId, document) {
     // insert a proper record since we rely on simple-schema's autoValue feature
     if (friend.hasFriendshipRequestFrom(user)) { // TODO: find a way around this hack
         // remove the the defunct request
-        RequestsCollection.remove({ userId: document.userId, requesterId: document.friendId });
+        RequestsCollection.remove({ userId: document.userId, requesterId: document.friendId, type: 'friend' });
         // create a reverse record for the other user
         // so the connection happens for both users
         FriendsCollection.insert({ userId: document.friendId, friendId: userId });
@@ -100,5 +100,7 @@ User.onBlocked(function onBlockedHook(userId, blockedUserId) {
     RequestsCollection.remove({ $or: [
         { userId: document.userId, requesterId: document.blockedUserId },
         { userId: document.blockedUserId, requesterId: document.userid },
-    ] });
+    ],
+        type: 'friend',
+    });
 });
