@@ -22,7 +22,7 @@ export class Friend extends BaseModel {
 Friend.attachCollection(FriendsCollection);
 
 // Create the schema for a friend
-Friend.appendSchema({
+FriendsCollection.attachSchema(new SimpleSchema({
     userId: {
         type: String,
         regEx: SimpleSchema.RegEx.Id,
@@ -50,4 +50,4 @@ Friend.appendSchema({
         },
         denyUpdate: true,
     },
-});
+}));
