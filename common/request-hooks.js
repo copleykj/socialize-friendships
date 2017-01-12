@@ -10,3 +10,5 @@ Request.onAccepted(function onAcceptedHook() {
         new Friend({ userId: Meteor.userId(), friendId: this.requesterId }).save();
     }
 });
+
+Request.registerRequestType('friend');
