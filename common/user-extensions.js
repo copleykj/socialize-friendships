@@ -135,7 +135,7 @@ User.methods({
     },
 
     /**
-     * Accept frienship request from the user
+     * Accept friendship request from the user
      * @method  acceptFriendshipRequest
      */
     acceptFriendshipRequest() {
