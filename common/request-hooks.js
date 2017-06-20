@@ -5,7 +5,7 @@ import { Request } from 'meteor/socialize:requestable';
 
 import { Friend } from './friend-model.js';
 
-Request.onAccepted(function onAcceptedHook() {
+Request.onAccepted(Friend, function onAcceptedHook() {
     if (this.type === 'friend') {
         new Friend({ userId: Meteor.userId(), friendId: this.requesterId }).save();
     }
