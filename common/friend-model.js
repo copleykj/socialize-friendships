@@ -2,7 +2,7 @@
 import { Meteor } from 'meteor/meteor';
 import { BaseModel } from 'meteor/socialize:base-model';
 import { Mongo } from 'meteor/mongo';
-import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import SimpleSchema from 'simpl-schema';
 
 /* eslint-enable import/no-unresolved */
 
