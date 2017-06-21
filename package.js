@@ -12,6 +12,7 @@ Package.onUse(function _(api) {
     api.use([
         'ecmascript',
         'socialize:user-model@1.0.0',
+        'socialize:user-blocking@1.0.0',
         'socialize:requestable@1.0.0',
     ]);
 
