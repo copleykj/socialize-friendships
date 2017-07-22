@@ -12,7 +12,7 @@ FriendsCollection.allow({
         if (userId) {
             const user = User.createEmpty(userId);
             const requester = User.createEmpty(friend.friendId);
-            if (!user.hasRequestFrom(requester)) {
+            if (!user.hasFriendshipRequestFrom(requester)) {
                 throw new Meteor.Error('NoRequest', 'User must request friendship before friendship is allowed');
             } else {
                 return true;
