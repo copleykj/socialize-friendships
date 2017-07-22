@@ -6,7 +6,7 @@ import SimpleSchema from 'simpl-schema';
 
 /* eslint-enable import/no-unresolved */
 
-export const FriendsCollection = new Mongo.Collection('FriendsCollection');
+export const FriendsCollection = new Mongo.Collection('friends');
 
 export class Friend extends BaseModel {
     /**
