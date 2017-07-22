@@ -98,8 +98,8 @@ User.onBlocked(function onBlockedHook(userId, blockedUserId) {
 
     // If there are any requests between the users, clean them up.
     RequestsCollection.remove({ $or: [
-        { userId: document.userId, requesterId: document.blockedUserId },
-        { userId: document.blockedUserId, requesterId: document.userid },
+        { userId, requesterId: blockedUserId },
+        { userId: blockedUserId, requesterId: userId },
     ],
         type: 'friend',
     });
