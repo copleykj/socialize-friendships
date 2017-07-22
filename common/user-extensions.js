@@ -1,7 +1,7 @@
 /* eslint-disable import/no-unresolved */
 import { Meteor } from 'meteor/meteor';
 import { User } from 'meteor/socialize:user-model';
-import { RequestsCollection } from 'meteor/socialize:requestable';
+import { RequestsCollection, Request } from 'meteor/socialize:requestable';
 
 /* eslint-enable import/no-unresolved */
 
