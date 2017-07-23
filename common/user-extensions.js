@@ -86,7 +86,7 @@ User.methods({
      */
     pendingFriendRequests(limit, skip) {
         const options = { limit, skip };
-        return RequestsCollection.find({ ...this.getLinkObject(), type: 'friend', denied: { $exists: false }, ignored: { $exists: false } }, options);
+        return RequestsCollection.find({ requesterId: this._id, type: 'friend', denied: { $exists: false }, ignored: { $exists: false } }, options);
     },
 
     /**
@@ -140,7 +140,6 @@ User.methods({
      */
     acceptFriendshipRequest() {
         const request = RequestsCollection.findOne({
-            ...this.getLinkObject(),
             type: 'friend',
             requesterId: this._id,
             linkedObjectId: Meteor.userId(),
@@ -154,7 +153,6 @@ User.methods({
      */
     denyFriendshipRequest() {
         const request = RequestsCollection.findOne({
-            ...this.getLinkObject(),
             type: 'friend',
             requesterId: this._id,
             linkedObjectId: Meteor.userId(),
@@ -168,7 +166,6 @@ User.methods({
      */
     ignoreFriendshipRequest() {
         const request = RequestsCollection.findOne({
-            ...this.getLinkObject(),
             type: 'friend',
             requesterId: this._id,
             linkedObjectId: Meteor.userId(),
