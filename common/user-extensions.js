@@ -8,7 +8,7 @@ import { RequestsCollection, Request } from 'meteor/socialize:requestable';
 import { FriendsCollection } from './friend-model';
 
 // Configurable number of days to restrict a user from re-requesting a friendship
-User.restrictRequestDays = 30;
+User.restrictFriendshipRequestDays = 30;
 
 User.methods({
     /**
@@ -108,7 +108,7 @@ User.methods({
         const request = RequestsCollection.findOne({ ...this.getLinkObject(), type: 'friend', requesterId: user._id }, { fields: { _id: true, denied: true } });
 
         if (request) {
-            const minDate = request.denied && request.denied.getTime() + (3600000 * 24 * User.restrictRequestDays);
+            const minDate = request.denied && request.denied.getTime() + (3600000 * 24 * User.restrictFrienshipRequestDays);
             if (!request.denied || minDate > Date.now()) {
                 return true;
             }
