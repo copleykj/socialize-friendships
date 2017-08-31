@@ -29,7 +29,7 @@ _**All code examples in this section assume an instance of `User` as `currentUse
 var currentUser = Meteor.user();
 ```
 
-**requests(limit, skip)** - Get the requests to the user. Returns a Mongo.Cursor which yields `Request` instances.
+**requests(options)** - Get the requests to the user. Returns a Mongo.Cursor which yields `Request` instances. Signature of `options` param is the same as you would pass to `Collection.find()`.
 
 ```html
 {{#each currentUser.requests}}
@@ -133,7 +133,7 @@ Template.userProfile.events({
 });
 ```
 
-**friends(limit, skip)** - Get friends for the user. Returns a Mongo.Cursor which yields Friend instances
+**friends(options)** - Get friends for the user. Returns a `Mongo.Cursor` which yields Friend instances. Signature of `options` param is the same as you would pass to `Collection.find()`.
 
 ```html
 {{#each currentUser.friends}}
@@ -142,7 +142,7 @@ Template.userProfile.events({
 {{/each}}
 ```
 
-**friendsAsUsers(limit, skip)** - Get friends for user as the users they represent. Returns a Mongo.Cursor which yields User instances.
+**friendsAsUsers(options)** - Get friends for user as the users they represent. Returns a `Mongo.Cursor` which yields User instances. Signature of `options` param is the same as you would pass to `Collection.find()`.
 
 ```html
 {{#each currentUser.friendsAsUsers}}
