@@ -28,7 +28,7 @@ FriendsCollection.attachSchema(new SimpleSchema({
         regEx: SimpleSchema.RegEx.Id,
         autoValue() {
             if (this.isInsert) {
-                if (!this.isSet && this.isFromTrustedCode) {
+                if (!this.isSet || !this.isFromTrustedCode) {
                     return this.userId;
                 }
             }
