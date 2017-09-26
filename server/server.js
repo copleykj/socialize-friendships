@@ -37,17 +37,26 @@ FriendsCollection.after.insert(function afterInsert(userId, document) {
     // insert a proper record since we rely on simple-schema's autoValue feature
     if (friend.hasFriendshipRequestFrom(user)) { // TODO: find a way around this hack
         // remove the the defunct request
-        RequestsCollection.remove({ linkedObjectId: document.userId, requesterId: document.friendId, type: 'friend' });
+        RequestsCollection.remove({ linkedObjectId: document.userId, requesterId: document.friendId, type: 'friend' }, {
+            channels: [
+                `friendRequests::${document.userId}`,
+                `pendingFriendRequests::${document.friendId}`,
+            ],
+        });
         // create a reverse record for the other user
         // so the connection happens for both users
-        FriendsCollection.insert({ userId: document.friendId, friendId: userId });
+        FriendsCollection.insert({ userId: document.friendId, friendId: userId }, {
+            channel: `friends::${document.friendId}`,
+        });
     }
 });
 
 FriendsCollection.after.remove(function afterRemove(userId, document) {
     // when a friend record is removed, remove the reverse record for the
     // other users so that the friend connection is terminated on both ends
-    FriendsCollection.direct.remove({ userId: document.friendId, friendId: userId });
+    FriendsCollection.direct.remove({ userId: document.friendId, friendId: userId }, {
+        channel: `friends::${document.friendId}`,
+    });
 });
 
 RequestsCollection.allow({
@@ -103,5 +112,12 @@ User.onBlocked(function onBlockedHook(userId, blockedUserId) {
             { userId: blockedUserId, requesterId: userId },
         ],
         type: 'friend',
+    }, {
+        channels: [
+            `friendRequests::${userId}`,
+            `friendRequests::${blockedUserId}`,
+            `pendingFriendRequests::${userId}`,
+            `pendingFriendRequests::${blockedUserId}`,
+        ],
     });
 });

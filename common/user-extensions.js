@@ -57,7 +57,11 @@ User.methods({
      * @returns {Mongo.Cursor} A cursor which returns request instances
      */
     friendRequests(options = {}) {
-        return RequestsCollection.find({ ...this.getLinkObject(), type: 'friend', denied: { $exists: false }, ignored: { $exists: false } }, options);
+        const newOptions = {
+            ...options,
+            channel: `friendRequests::${this._id}`,
+        };
+        return RequestsCollection.find({ ...this.getLinkObject(), type: 'friend', denied: { $exists: false }, ignored: { $exists: false } }, newOptions);
     },
 
     /**
@@ -107,7 +111,9 @@ User.methods({
      */
     requestFriendship() {
         // insert the request, simple-schema takes care of default fields and values and allow takes care of permissions
-        new Request({ ...this.getLinkObject(), type: 'friend' }).save();
+        new Request({ ...this.getLinkObject(), type: 'friend' }).save({
+            channels: [`friendRequests::${this._id}`, `pendingFriendRequests::${Meteor.userId()}`],
+        });
     },
 
     /**
@@ -115,7 +121,9 @@ User.methods({
      */
     cancelFriendshipRequest() {
         const request = RequestsCollection.findOne({ ...this.getLinkObject(), type: 'friend', requesterId: Meteor.userId() });
-        request && request.cancel();
+        request && request.cancel({
+            channels: [`friendRequests::${Meteor.userId()}`, `pendingFriendRequests::${this._id}`],
+        });
     },
 
     /**
