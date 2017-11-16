@@ -38,7 +38,7 @@ FriendsCollection.after.insert(function afterInsert(userId, document) {
     if (friend.hasFriendshipRequestFrom(user)) { // TODO: find a way around this hack
         // remove the the defunct request
         RequestsCollection.remove({ linkedObjectId: document.userId, requesterId: document.friendId, type: 'friend' }, {
-            channels: [
+            namespaces: [
                 `friendRequests::${document.userId}`,
                 `pendingFriendRequests::${document.friendId}`,
             ],
@@ -46,7 +46,7 @@ FriendsCollection.after.insert(function afterInsert(userId, document) {
         // create a reverse record for the other user
         // so the connection happens for both users
         FriendsCollection.insert({ userId: document.friendId, friendId: userId }, {
-            channel: `friends::${document.friendId}`,
+            namespace: `${document.friendId}`,
         });
     }
 });
@@ -55,7 +55,7 @@ FriendsCollection.after.remove(function afterRemove(userId, document) {
     // when a friend record is removed, remove the reverse record for the
     // other users so that the friend connection is terminated on both ends
     FriendsCollection.direct.remove({ userId: document.friendId, friendId: userId }, {
-        channel: `friends::${document.friendId}`,
+        namespace: `${document.friendId}`,
     });
 });
 
@@ -76,7 +76,7 @@ RequestsCollection.allow({
                     throw new Meteor.Error('Blocked', 'One user is blocking the other');
                 }
             } else {
-                throw new Meteor.Error('FreindshipExists', 'Either the user is requesting themselves or they are already friends with this user');
+                throw new Meteor.Error('FriendshipExists', 'Either the user is requesting themselves or they are already friends with this user');
             }
         }
         return false;
@@ -113,7 +113,7 @@ User.onBlocked(function onBlockedHook(userId, blockedUserId) {
         ],
         type: 'friend',
     }, {
-        channels: [
+        namespaces: [
             `friendRequests::${userId}`,
             `friendRequests::${blockedUserId}`,
             `pendingFriendRequests::${userId}`,
