@@ -40,7 +40,7 @@ FriendsCollection.attachSchema(new SimpleSchema({
         type: String,
         regEx: SimpleSchema.RegEx.Id,
     },
-    date: {
+    createdAt: {
         type: Date,
         autoValue() {
             if (this.isInsert) {

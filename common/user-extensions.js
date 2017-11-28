@@ -13,10 +13,10 @@ User.restrictFriendshipRequestDays = 30;
 User.methods({
     /**
      * Retrieve a list of friend connections
-     * @param  {Object} [options={ sort: { date: -1 } }]  Mongo style options object which is passed to Collection.find()
+     * @param  {Object} [options={ sort: { createdAt: -1 } }]  Mongo style options object which is passed to Collection.find()
      * @returns {Mongo.Cursor}  A cursor of which returns Friend instances
      */
-    friends(options = { sort: { date: -1 } }) {
+    friends(options = { sort: { createdAt: -1 } }) {
         return FriendsCollection.find({ userId: this._id }, options);
     },
 
