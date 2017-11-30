@@ -1,6 +1,7 @@
 /* eslint-disable import/no-unresolved */
 import { Meteor } from 'meteor/meteor';
 import { BaseModel } from 'meteor/socialize:base-model';
+import { ServerTime } from 'meteor/socialize:server-time';
 import { Mongo } from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
 
@@ -44,7 +45,7 @@ FriendsCollection.attachSchema(new SimpleSchema({
         type: Date,
         autoValue() {
             if (this.isInsert) {
-                return new Date();
+                return ServerTime.date();
             }
             return undefined;
         },
