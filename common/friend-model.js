@@ -9,6 +9,32 @@ import SimpleSchema from 'simpl-schema';
 
 export const FriendsCollection = new Mongo.Collection('socialize:friends');
 
+if (FriendsCollection.configureRedisOplog) {
+    FriendsCollection.configureRedisOplog({
+        mutation(options, { selector, doc }) {
+            let userId = (selector && selector.userId) || (doc && doc.userId);
+
+            if (!userId && selector._id) {
+                const friend = FriendsCollection.findOne({ _id: selector._id }, { fields: { userId: 1 } });
+                userId = friend && friend.userId;
+            }
+
+            if (userId) {
+                Object.assign(options, {
+                    namespace: userId,
+                });
+            }
+        },
+        cursor(options, selector) {
+            if (selector.userId) {
+                Object.assign(options, {
+                    namespace: selector.userId,
+                });
+            }
+        },
+    });
+}
+
 export class Friend extends BaseModel {
     /**
      * Get the User instance for the friend

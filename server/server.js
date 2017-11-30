@@ -67,7 +67,7 @@ RequestsCollection.allow({
                     throw new Meteor.Error('Blocked', 'One user is blocking the other');
                 }
             } else {
-                throw new Meteor.Error('FreindshipExists', 'Either the user is requesting themselves or they are already friends with this user');
+                throw new Meteor.Error('FriendshipExists', 'Either the user is requesting themselves or they are already friends with this user');
             }
         }
         return false;
