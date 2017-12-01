@@ -42,7 +42,7 @@ export class Friend extends BaseModel {
      * @memberof Friend
      */
     user() {
-        return Meteor.users.findOne(this.friendId);
+        return Meteor.users.findOne({ _id: this.friendId });
     }
 }
 

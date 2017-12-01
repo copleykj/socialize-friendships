@@ -53,8 +53,8 @@ FriendsCollection.after.remove(function afterRemove(userId, document) {
 RequestsCollection.allow({
     insert(userId, request) {
         if (userId && request.type === 'friend') {
-            const user = Meteor.users.findOne(request.linkedObjectId);
-            const requester = Meteor.users.findOne(request.requesterId);
+            const user = Meteor.users.findOne({ _id: request.linkedObjectId });
+            const requester = Meteor.users.findOne({ _id: request.requesterId });
 
             if (!user.isSelf() && !user.isFriendsWith(requester)) {
                 if (!(user.blocksUser(requester) || requester.blocksUserById(user))) {
