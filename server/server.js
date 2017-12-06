@@ -4,7 +4,7 @@ import { User } from 'meteor/socialize:user-model';
 import { RequestsCollection } from 'meteor/socialize:requestable';
 
 /* eslint-enable import/no-unresolved */
-
+import './publications.js';
 import { FriendsCollection } from '../common/friend-model';
 
 FriendsCollection.allow({
