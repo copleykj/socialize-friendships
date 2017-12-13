@@ -29,10 +29,10 @@ _**All code examples in this section assume an instance of `User` as `currentUse
 var currentUser = Meteor.user();
 ```
 
-**requests(options)** - Get the requests to the user. Returns a Mongo.Cursor which yields `Request` instances. Signature of `options` param is the same as you would pass to `Collection.find()`.
+**friendRequests(options)** - Get the requests to the user. Returns a Mongo.Cursor which yields `Request` instances. Signature of `options` param is the same as you would pass to `Collection.find()`.
 
 ```html
-{{#each currentUser.requests}}
+{{#each currentUser.friendRequests}}
 <div class="request">
     <p>{{requester.username}} would like to be friends</p>
     <p>
@@ -44,18 +44,18 @@ var currentUser = Meteor.user();
 {{/each}}
 ```
 
-**numRequests** - The number of remaining requests to the user
+**numFriendRequests** - The number of remaining requests to the user
 
 ```html
-<div class="badge success">{{currentUser.numRequests}}</div>
+<div class="badge success">{{currentUser.numFriendRequests}}</div>
 ```
 
-**pendingRequests** - A cursor of requests that the user has sent but have not been approved, denied or ignored.
+**pendingFriendRequests** - A cursor of requests that the user has sent but have not been approved, denied or ignored.
 
 ```html
-{{#each currentUser.pendingRequests}}
+{{#each currentUser.pendingFriendRequests}}
     <p>
-        {{user.username}} - <a href="#" data-action="cancel">cance request</a>
+        {{user.username}} - <a href="#" data-action="cancel">cancel request</a>
     </p>
 {{/each}}
 ```
@@ -68,11 +68,11 @@ var currentUser = Meteor.user();
 </p>
 ```
 
-**hasRequestFrom(user)** - Check if the user already has a request from someone.
+**hasFriendshipRequestFrom(user)** - Check if the user already has a request from someone.
 
 ```html
 <!-- assuming data context is user instance -->
-{{#if currentUser.hasRequestFrom this}}
+{{#if currentUser.hasFriendshipRequestFrom this}}
     <div class="btn primary" data-action="accept">Accept Request</div>
 {{/if}}
 

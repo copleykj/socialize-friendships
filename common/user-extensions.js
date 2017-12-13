@@ -78,7 +78,7 @@ User.methods({
     },
 
     /**
-     * Retrieve the number of pending friend requests the user has
+     * Retrieve the number of pending friend requests from this user to other users
      * @returns {Number} The number of pending requests
      */
     numPendingFriendRequests() {
@@ -103,7 +103,7 @@ User.methods({
     },
 
     /**
-     * Send a freindship request to a user
+     * Send a friendship request to a user
      */
     requestFriendship() {
         // insert the request, simple-schema takes care of default fields and values and allow takes care of permissions
