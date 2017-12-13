@@ -1,34 +1,21 @@
 /* eslint-disable import/no-unresolved */
 import { Meteor } from 'meteor/meteor';
-import { check } from 'meteor/check';
+import { check, Match } from 'meteor/check';
 import { User } from 'meteor/socialize:user-model';
 import { publishComposite } from 'meteor/reywood:publish-composite';
 
-import SimpleSchema from 'simpl-schema';
-
-const publicationOptionsSchema = new SimpleSchema({
-    limit: {
-        type: Number,
-        optional: true,
-    },
-    skip: {
-        type: Number,
-        optional: true,
-    },
-    sort: {
-        type: Object,
-        optional: true,
-        blackbox: true,
-    },
-});
+const optionsArgumentCheck = {
+    limit: Match.Optional(Number),
+    skip: Match.Optional(Number),
+    sort: Match.Optional(Object),
+};
 
 publishComposite('socialize.friends', function publishFriends(userId, options = {}) {
+    check(userId, String);
+    check(options, optionsArgumentCheck);
     if (!this.userId) {
         return this.ready();
     }
-    check(userId, String);
-    publicationOptionsSchema.validate(options);
-
     const currentUser = User.createEmpty(this.userId);
     const userToPublish = User.createEmpty(userId);
 
@@ -50,10 +37,10 @@ publishComposite('socialize.friends', function publishFriends(userId, options = 
 });
 
 publishComposite('socialize.friendRequests', function publishFriends(options = {}) {
+    check(options, optionsArgumentCheck);
     if (!this.userId) {
         return this.ready();
     }
-    publicationOptionsSchema.validate(options);
 
     const currentUser = User.createEmpty(this.userId);
 
@@ -72,10 +59,10 @@ publishComposite('socialize.friendRequests', function publishFriends(options = {
 });
 
 publishComposite('socialize.pendingFriendRequests', function publishFriends(options = {}) {
+    check(options, optionsArgumentCheck);
     if (!this.userId) {
         return this.ready();
     }
-    publicationOptionsSchema.validate(options);
 
     const currentUser = User.createEmpty(this.userId);
 
