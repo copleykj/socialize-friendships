@@ -15,7 +15,7 @@ Package.onUse(function _(api) {
         'socialize:requestable@1.0.0',
     ]);
 
-    api.imply('socialize:user-model');
+    api.imply('socialize:user-blocking');
 
     api.mainModule('server/server.js', 'server');
     api.mainModule('common/common.js');
