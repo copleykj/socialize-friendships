@@ -162,10 +162,10 @@ Template.userProfile.events({
 });
 ```
 
-**isFriendsWith(user)** - Check if the current user has send a friendship request to the given user.
+**isFriendsWith(userId)** - Check if the current user has send a friendship request to the given user.
 
 ```html
-{{#if currentUser.isFriendsWith this}}
+{{#if currentUser.isFriendsWith this._id}}
 <p>You are friends with this user</p>
 {{/if}}
 ```

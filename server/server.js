@@ -56,8 +56,8 @@ RequestsCollection.allow({
             const user = Meteor.users.findOne({ _id: request.linkedObjectId });
             const requester = Meteor.users.findOne({ _id: request.requesterId });
 
-            if (!user.isSelf() && !user.isFriendsWith(requester)) {
-                if (!(user.blocksUser(requester) || requester.blocksUserById(user))) {
+            if (!user.isSelf() && !user.isFriendsWith(requester._id)) {
+                if (!(user.blocksUser(requester) || requester.blocksUserById(user._id))) {
                     if (user.hasFriendshipRequestFrom(requester) || requester.hasFriendshipRequestFrom(user)) {
                         throw new Meteor.Error('RequestExists', 'A request between users already exists');
                     } else {

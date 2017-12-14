@@ -44,11 +44,10 @@ User.methods({
 
     /**
      * Check if the user is friends with another
-     * @param   {Object}  User The user to check
+     * @param   {String}  userId The user to check
      * @returns {Boolean} Whether the user is friends with the other
      */
-    isFriendsWith(user) {
-        const userId = user._id || Meteor.userId();
+    isFriendsWith(userId = Meteor.userId()) {
         return !!FriendsCollection.findOne({ userId: this._id, friendId: userId });
     },
     /**
