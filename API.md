@@ -177,3 +177,23 @@ Template.userProfile.events({
 ```javascript
 User.restrictFriendshipRequestDays = 365; //don't allow new requests for a year.
 ```
+
+## Publications ##
+
+**socialize.friends(userId, options = { limit: 20, sort: { createdAt: -1 } })** - Publishes friend records with corresponding user records for the user specified by `userId`. This publication will not send any data if the specified user blocks the current user, or the current user blocks the specified user. Default limit is 20 and default sort is newest to oldest friends.
+
+```javascript
+Meteor.subscribe('socialize.friends', Meteor.userId())
+```
+
+**socialize.friendRequests(options = { limit: 10, sort: { createdAt: -1 } })** - Publishes friend request records for the current user **_from_** other users. Default limit is 10 and default sort is oldest to newest requests.
+
+```javascript
+Meteor.subscribe('socialize.friendRequests', { limit: 5 })
+```
+
+**socialize.pendingFriendRequests(options = { limit: 10, sort: { createdAt: -1 } })** - Publishes friend request records for the current user **_to_** other users. Default limit is 10 and default sort is oldest to newest requests.
+
+```javascript
+Meteor.subscribe('socialize.pendingFriendRequests', { limit: 5 })
+```
