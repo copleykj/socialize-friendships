@@ -27,7 +27,7 @@ publishComposite('socialize.friends', function publishFriends(userId, options = 
             children: [
                 {
                     find(friend) {
-                        return Meteor.users.find({ _id: friend.friendId });
+                        return Meteor.users.find({ _id: friend.friendId }, { fields: User.fieldsToPublish });
                     },
                 },
             ],
@@ -51,7 +51,7 @@ publishComposite('socialize.friendRequests', function publishFriends(options = {
         children: [
             {
                 find(request) {
-                    return Meteor.users.find({ _id: request.requesterId });
+                    return Meteor.users.find({ _id: request.requesterId }, { fields: User.fieldsToPublish });
                 },
             },
         ],
@@ -73,7 +73,7 @@ publishComposite('socialize.pendingFriendRequests', function publishFriends(opti
         children: [
             {
                 find(request) {
-                    return Meteor.users.find({ _id: request.linkedObjectId });
+                    return Meteor.users.find({ _id: request.linkedObjectId }, { fields: User.fieldsToPublish });
                 },
             },
         ],
