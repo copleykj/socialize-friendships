@@ -61,11 +61,14 @@ FriendsCollection.attachSchema(new SimpleSchema({
             }
             return undefined;
         },
+        index: 1,
         denyUpdate: true,
     },
     friendId: {
         type: String,
         regEx: SimpleSchema.RegEx.Id,
+        index: 1,
+        denyUpdate: true,
     },
     createdAt: {
         type: Date,
@@ -75,6 +78,7 @@ FriendsCollection.attachSchema(new SimpleSchema({
             }
             return undefined;
         },
+        index: -1,
         denyUpdate: true,
     },
 }));
