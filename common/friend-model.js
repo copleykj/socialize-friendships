@@ -12,23 +12,33 @@ export const FriendsCollection = new Mongo.Collection('socialize:friends');
 if (FriendsCollection.configureRedisOplog) {
     FriendsCollection.configureRedisOplog({
         mutation(options, { selector, doc }) {
-            let userId = (selector && selector.userId) || (doc && doc.userId);
+            const namespaces = [];
+            if (doc) {
+                namespaces.push(doc.userId, doc.friendId);
+            } else if (selector) {
+                const { _id, userId, friendId } = selector;
 
-            if (!userId && selector._id) {
-                const friend = FriendsCollection.findOne({ _id: selector._id }, { fields: { userId: 1 } });
-                userId = friend && friend.userId;
+                if (_id) {
+                    const friend = FriendsCollection.findOne({ _id: selector._id }, { fields: { userId: 1, friendId: 1 } });
+                    if (friend) {
+                        namespaces.push(friend.userId, friend.friendId);
+                    }
+                } else {
+                    userId && namespaces.push(userId);
+                    friendId && namespaces.push(friendId);
+                }
             }
 
-            if (userId) {
-                Object.assign(options, {
-                    namespace: userId,
-                });
-            }
+            Object.assign(options, {
+                namespaces,
+            });
         },
         cursor(options, selector) {
-            if (selector.userId) {
+            const newSelector = (selector.$or && selector.$or[0]) || selector;
+            const selectorId = newSelector.userId || newSelector.friendId;
+            if (selectorId) {
                 Object.assign(options, {
-                    namespace: selector.userId,
+                    namespace: selectorId,
                 });
             }
         },
