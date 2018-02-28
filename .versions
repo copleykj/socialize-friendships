@@ -52,9 +52,9 @@ reywood:publish-composite@1.5.2
 routepolicy@1.0.12
 service-configuration@1.0.11
 socialize:base-model@1.0.0
-socialize:friendships@1.0.0
+socialize:friendships@1.0.1
 socialize:linkable-model@1.0.0
-socialize:requestable@1.0.0
+socialize:requestable@1.0.2
 socialize:server-time@0.1.2
 socialize:user-blocking@1.0.0
 socialize:user-model@1.0.0

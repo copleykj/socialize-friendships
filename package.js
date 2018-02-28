@@ -2,7 +2,7 @@
 Package.describe({
     name: 'socialize:friendships',
     summary: 'A social friendship package',
-    version: '1.0.0',
+    version: '1.0.1',
     git: 'https://github.com/copleykj/socialize-friendships.git',
 });
 
@@ -13,7 +13,7 @@ Package.onUse(function _(api) {
         'check',
         'reywood:publish-composite@1.5.2',
         'socialize:user-blocking@1.0.0',
-        'socialize:requestable@1.0.0',
+        'socialize:requestable@1.0.2',
     ]);
 
     api.imply('socialize:user-blocking');
