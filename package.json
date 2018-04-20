@@ -1,6 +1,6 @@
 {
     "name": "@socialize/friendships",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Meteor's socialize:friendships package ported for React Native",
     "main": "entry-rn.js",
     "scripts": {
