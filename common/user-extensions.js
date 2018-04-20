@@ -82,7 +82,7 @@ export default ({ Meteor, User, Request, RequestsCollection, FriendsCollection }
         * @returns {Boolean} Whether or not there is a pending request
         */
         hasFriendshipRequestFrom(user) {
-            const request = RequestsCollection.findOne({ ...this.getLinkObject(), type: 'friend', requesterId: user._id }, { fields: { _id: true, denied: true } });
+            const request = RequestsCollection.findOne({ ...this.getLinkObject(), type: 'friend', requesterId: user._id }, { fields: { _id: 1, denied: 1 } });
 
             if (request) {
                 const minDate = request.denied && request.denied.getTime() + (3600000 * 24 * User.restrictFrienshipRequestDays);
