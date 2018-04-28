@@ -4,6 +4,18 @@ Provides social network style Friend Requests and Friendships.
 
 >This is a [Meteor][meteor] package with part of it's code published as a companion NPM package made to work with React Native. This allows your Meteor and React Native projects that use this package to share code between them to give you a competitive advantage when bringing your mobile and web application to market.
 
+<!-- TOC START min:1 max:3 link:true update:true -->
+- [Friendships](#friendships)
+  - [Supporting the Project](#supporting-the-project)
+  - [Installation](#installation)
+  - [React Native Installation](#react-native-installation)
+  - [Basic Usage](#basic-usage)
+  - [Requests](#requests)
+  - [Blocking](#blocking)
+  - [Scalability - Redis Oplog](#scalability---redis-oplog)
+
+<!-- TOC END -->
+
 ## Supporting the Project
 In the spirit of keeping this and all of the packages in the [Socialize][socialize] set alive, I ask that if you find this package useful, please donate to it's development.
 
