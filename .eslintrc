@@ -18,6 +18,7 @@
         "no-underscore-dangle": 0,
         "no-restricted-syntax": [2, "WithStatement"],
         "no-unused-expressions": ["error", { "allowShortCircuit": true, "allowTernary": true }],
+        "no-param-reassign": 0,
         "react/jsx-indent": [2, 4],
         "react/jsx-indent-props": [2, 4],
         "no-plusplus": [2, { "allowForLoopAfterthoughts": true }],

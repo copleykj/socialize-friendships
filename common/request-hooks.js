@@ -1,14 +1,9 @@
-/* eslint-disable import/no-unresolved */
-import { Request } from 'meteor/socialize:requestable';
-import { User } from 'meteor/socialize:user-model';
-/* eslint-enable import/no-unresolved */
+export default ({ User, Request, Friend }) => {
+    Request.onAccepted(User, function onAcceptedHook() {
+        if (this.type === 'friend') {
+            new Friend({ friendId: this.requesterId }).save();
+        }
+    });
 
-import { Friend } from './friend-model.js';
-
-Request.onAccepted(User, function onAcceptedHook() {
-    if (this.type === 'friend') {
-        new Friend({ friendId: this.requesterId }).save();
-    }
-});
-
-Request.registerRequestType('friend');
+    Request.registerRequestType('friend');
+};

@@ -5,7 +5,7 @@ import { RequestsCollection } from 'meteor/socialize:requestable';
 
 /* eslint-enable import/no-unresolved */
 import './publications.js';
-import { FriendsCollection } from '../common/friend-model';
+import { Friend, FriendsCollection } from '../common/common.js';
 
 FriendsCollection.allow({
     insert(userId, friend) {
@@ -105,3 +105,5 @@ User.onBlocked(function onBlockedHook(userId, blockedUserId) {
         type: 'friend',
     });
 });
+
+export { Friend, FriendsCollection };
