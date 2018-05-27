@@ -11,9 +11,9 @@ Package.onUse(function _(api) {
 
     api.use([
         'check',
-        'reywood:publish-composite@1.5.2',
-        'socialize:user-blocking@1.0.0',
-        'socialize:requestable@1.0.2',
+        'reywood:publish-composite@1.6.0',
+        'socialize:user-blocking@1.0.1',
+        'socialize:requestable@1.0.3',
     ]);
 
     api.imply('socialize:user-blocking');
