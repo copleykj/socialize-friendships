@@ -19,5 +19,5 @@ Package.onUse(function _(api) {
     api.imply('socialize:user-blocking');
 
     api.mainModule('server/server.js', 'server');
-    api.mainModule('common/common.js');
+    api.mainModule('common/common.js', 'client');
 });
