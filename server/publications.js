@@ -3,6 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
 import { User } from 'meteor/socialize:user-model';
 import { publishComposite } from 'meteor/reywood:publish-composite';
+import { RequestsCollection } from 'meteor/socialize:requestable';
 
 const optionsArgumentCheck = {
     limit: Match.Optional(Number),
@@ -78,4 +79,18 @@ publishComposite('socialize.pendingFriendRequests', function publishFriends(opti
             },
         ],
     };
+});
+
+Meteor.publish('socialize.hasFriendRequest', function(requestedUser) {
+    check(requestedUser, String);
+
+    const userToPublish = Meteor.users.findOne({ _id: requestedUser });
+
+    return RequestsCollection.find({
+        $or: [
+            { linkedObjectId: this.userId, requesterId: userToPublish._id },
+            { linkedObjectId: userToPublish._id, requesterId: this.userId }
+        ],
+        type: 'friend'
+    });
 });
