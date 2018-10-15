@@ -81,7 +81,7 @@ publishComposite('socialize.pendingFriendRequests', function publishFriends(opti
     };
 });
 
-Meteor.publish('socialize.hasFriendshipRequest', function(requestedUser) {
+Meteor.publish('socialize.hasFriendRequest', function(requestedUser) {
     check(requestedUser, String);
 
     const userToPublish = Meteor.users.findOne({ _id: requestedUser });

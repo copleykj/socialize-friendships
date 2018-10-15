@@ -198,8 +198,8 @@ Meteor.subscribe('socialize.friendRequests', { limit: 5 })
 Meteor.subscribe('socialize.pendingFriendRequests', { limit: 5 })
 ```
 
-**socialize.hasFriendshipRequest(requestedUser)** - Publishes friend requests between the current user and requested user.
+**socialize.hasFriendRequest(requestedUser)** - Publishes friend requests between the current user and requested user.
 
 ```javascript
-Meteor.subscribe(socialize.hasFriendshipRequest, profileUser._id);
+Meteor.subscribe('socialize.hasFriendRequest', profileUser._id);
 ```
