@@ -11,7 +11,7 @@ const optionsArgumentCheck = {
     sort: Match.Optional(Object),
 };
 
-publishComposite('socialize.friends', function publishFriends(userId, options = { limit: 20, sort: { createdAt: -1 } }) {
+publishComposite('socialize.friends', function(userId, options = { limit: 20, sort: { createdAt: -1 } }) {
     check(userId, String);
     check(options, optionsArgumentCheck);
     if (!this.userId) {
@@ -37,7 +37,7 @@ publishComposite('socialize.friends', function publishFriends(userId, options = 
     return undefined;
 });
 
-publishComposite('socialize.friendRequests', function publishFriends(options = { limit: 10, sort: { createdAt: -1 } }) {
+publishComposite('socialize.friendRequests', function(options = { limit: 10, sort: { createdAt: -1 } }) {
     check(options, optionsArgumentCheck);
     if (!this.userId) {
         return this.ready();
@@ -59,7 +59,7 @@ publishComposite('socialize.friendRequests', function publishFriends(options = {
     };
 });
 
-publishComposite('socialize.pendingFriendRequests', function publishFriends(options = { limit: 10, sort: { createdAt: -1 } }) {
+publishComposite('socialize.pendingFriendRequests', function(options = { limit: 10, sort: { createdAt: -1 } }) {
     check(options, optionsArgumentCheck);
     if (!this.userId) {
         return this.ready();
