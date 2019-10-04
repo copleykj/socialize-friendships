@@ -48,7 +48,7 @@ export default ({ Meteor, User, Request, RequestsCollection, FriendsCollection }
         * @returns {Mongo.Cursor} A cursor which returns request instances
         */
         friendRequests(options = {}) {
-            return RequestsCollection.find({ ...this.getLinkObject(), type: 'friend', denied: { $exists: false }, ignored: { $exists: false } }, options);
+            return RequestsCollection.find({ ...this.getLinkObject(), type: 'friend', deniedAt: { $exists: false }, ignoredAt: { $exists: false } }, options);
         },
 
         /**
@@ -65,7 +65,7 @@ export default ({ Meteor, User, Request, RequestsCollection, FriendsCollection }
         * @returns {Mongo.Cursor} A cursor which returns request instances
         */
         pendingFriendRequests(options = {}) {
-            return RequestsCollection.find({ requesterId: this._id, type: 'friend', denied: { $exists: false }, ignored: { $exists: false } }, options);
+            return RequestsCollection.find({ requesterId: this._id, type: 'friend', deniedAt: { $exists: false }, ignoredAt: { $exists: false } }, options);
         },
 
         /**
@@ -82,11 +82,11 @@ export default ({ Meteor, User, Request, RequestsCollection, FriendsCollection }
         * @returns {Boolean} Whether or not there is a pending request
         */
         hasFriendshipRequestFrom(user) {
-            const request = RequestsCollection.findOne({ ...this.getLinkObject(), type: 'friend', requesterId: user._id }, { fields: { _id: 1, denied: 1 } });
+            const request = RequestsCollection.findOne({ ...this.getLinkObject(), type: 'friend', requesterId: user._id }, { fields: { _id: 1, deniedAt: 1 } });
 
             if (request) {
-                const minDate = request.denied && request.denied.getTime() + (3600000 * 24 * User.restrictFrienshipRequestDays);
-                if (!request.denied || minDate > Date.now()) {
+                const minDate = request.deniedAt && request.deniedAt.getTime() + (3600000 * 24 * User.restrictFrienshipRequestDays);
+                if (!request.deniedAt || minDate > Date.now()) {
                     return true;
                 }
             }
