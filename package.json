@@ -1,6 +1,6 @@
 {
     "name": "@socialize/friendships",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "Meteor's socialize:friendships package ported for React Native",
     "main": "entry-rn.js",
     "scripts": {
@@ -21,7 +21,7 @@
     },
     "homepage": "https://github.com/copleykj/socialize-friendships#readme",
     "dependencies": {
-        "@socialize/user-blocking": "^1.0.0",
-        "@socialize/requestable": "^1.0.0"
+        "@socialize/user-blocking": "^1.0.3",
+        "@socialize/requestable": "^1.0.4"
     }
 }
