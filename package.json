@@ -1,11 +1,11 @@
 {
     "name": "@socialize/friendships",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "description": "Meteor's socialize:friendships package ported for React Native",
     "main": "entry-rn.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "publish": "meteor npm i && npm prune --production && meteor publish && meteor npm i",
+        "publish": "rimraf ./node_modules && meteor publish && meteor npm i --only=dev",
         "publish-release": "npm publish --access public"
     },
     "repository": {
@@ -24,8 +24,11 @@
     },
     "homepage": "https://github.com/copleykj/socialize-friendships#readme",
     "dependencies": {
-        "@socialize/user-blocking": "^1.0.4",
-        "@socialize/requestable": "^1.0.4"
+        "@socialize/user-blocking": "^1.0.5",
+        "@socialize/requestable": "^1.0.5"
+    },
+    "devDependencies": {
+      "rimraf": "^3.0.2"
     },
     "funding": [
         {
