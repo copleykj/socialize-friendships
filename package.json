@@ -24,8 +24,8 @@
     },
     "homepage": "https://github.com/copleykj/socialize-friendships#readme",
     "dependencies": {
-        "@socialize/user-blocking": "^1.0.5",
-        "@socialize/requestable": "^1.0.5"
+        "@socialize/user-blocking": "^1.0.6",
+        "@socialize/requestable": "^1.0.6"
     },
     "devDependencies": {
         "rimraf": "^3.0.2"
