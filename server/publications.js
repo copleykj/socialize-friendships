@@ -84,12 +84,10 @@ publishComposite('socialize.pendingFriendRequests', function publishFriends(opti
 Meteor.publish('socialize.hasFriendRequest', function(requestedUser) {
     check(requestedUser, String);
 
-    const userToPublish = Meteor.users.findOne({ _id: requestedUser });
-
     return RequestsCollection.find({
         $or: [
-            { linkedObjectId: this.userId, requesterId: userToPublish._id },
-            { linkedObjectId: userToPublish._id, requesterId: this.userId }
+            { linkedObjectId: this.userId, requesterId: requestedUser },
+            { linkedObjectId: requestedUser, requesterId: this.userId }
         ],
         type: 'friend'
     });
